@@ -90,9 +90,17 @@ class gitlab(
     $ldap_port              = $gitlab::params::ldap_port,
     $ldap_method            = $gitlab::params::ldap_method,
     $ldap_bind_dn           = $gitlab::params::ldap_bind_dn,
-    $ldap_bind_password     = $gitlab::params::ldap_bind_password
+    $ldap_bind_password     = $gitlab::params::ldap_bind_password,
+    $omniauth_name          = $gitlab::params::omniauth_name,
+    $omniauth_app_id        = $gitlab::params::omniauth_app_id,
+    $omniauth_app_secret    = $gitlab::params::omniauth_app_secret
   ) inherits gitlab::params {
   # FIXME class inheriting from params class
+
+  validate_string($omniauth_name)
+  validate_string($omniauth_app_id)
+  validate_string($omniauth_app_secret)
+
   case $::osfamily {
     Debian: {
       include gitlab::server

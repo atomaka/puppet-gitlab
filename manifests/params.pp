@@ -33,5 +33,7 @@ class gitlab::params {
   $ldap_method            = 'ssl'
   $ldap_bind_dn           = ''
   $ldap_bind_password     = ''
-
+  $omniauth_name          = ''
+  $omniauth_app_id        = ''
+  $omniauth_app_secret    = ''
 } # Class:: gitlab::params
