@@ -3,11 +3,19 @@
 #
 class gitlab::dependencies inherits gitlab {
 
+  # ensure puppet version meets minimum requirements
+  if $::puppetversion <= '3.2.0' {
+    fail ("puppet >= 3.2 required for gem provider, you have ${::puppetversion}")
+  }
+  else {
+    debug ("puppet ${::puppetversion} supports gem provider")
+  }
+
   # database dependencies
-  package { $db_packages: }
+  package { $gitlab::params::db_packages: }
 
   # system packages
-  package { $system_packages: } ->
+  package { $gitlab::params::system_packages: } ->
   package { 'bundler':
     ensure    => installed,
     provider  => gem,
